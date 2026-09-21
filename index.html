@@ -1,440 +1,790 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="es" class="h-full">
 <head>
-  <meta charset="UTF-8">
-  <title>Yellow flowers</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas para Ysabel 🌻</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
+    <style>
+        :root {
+            --gold-primary: #f59e0b;
+            --gold-light: #fef08a;
+            --gold-glow: #facc15;
+            --dark-bg: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .font-handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.6), 0 0 40px rgba(245, 158, 11, 0.3);
+        }
+
+        .glow-box {
+            box-shadow: 0 0 30px rgba(250, 204, 21, 0.25), inset 0 0 15px rgba(250, 204, 21, 0.1);
+        }
+
+        /* Glassmorphism styling */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(250, 204, 21, 0.25);
+        }
+
+        .glass-card-gold {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 224, 71, 0.3);
+        }
+
+        /* Envelope interactive animations */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out 0.2s, z-index 0.2s;
+            z-index: 3;
+        }
+
+        /* Flower stem growth keyframes */
+        @keyframes stemGrow {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes petalBloom {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            80% { transform: scale(1.1) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 15px rgba(250,204,21,0.8)); }
+            50% { opacity: 0.9; filter: drop-shadow(0 0 30px rgba(250,204,21,1)); }
+        }
+
+        .animate-float {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<body class="container">
-  <div class="night"></div>
-  <div class="flowers">
-    <div class="flower flower--1">
-      <div class="flower__leafs flower__leafs--1">
-        <div class="flower__leaf flower__leaf--1"></div>
-        <div class="flower__leaf flower__leaf--2"></div>
-        <div class="flower__leaf flower__leaf--3"></div>
-        <div class="flower__leaf flower__leaf--4"></div>
-        <div class="flower__white-circle"></div>
+<body class="min-h-screen text-slate-100 relative selection:bg-amber-400 selection:text-slate-900">
 
-        <div class="flower__light flower__light--1"></div>
-        <div class="flower__light flower__light--2"></div>
-        <div class="flower__light flower__light--3"></div>
-        <div class="flower__light flower__light--4"></div>
-        <div class="flower__light flower__light--5"></div>
-        <div class="flower__light flower__light--6"></div>
-        <div class="flower__light flower__light--7"></div>
-        <div class="flower__light flower__light--8"></div>
+    <canvas id="petalCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-      </div>
-      <div class="flower__line">
-        <div class="flower__line__leaf flower__line__leaf--1"></div>
-        <div class="flower__line__leaf flower__line__leaf--2"></div>
-        <div class="flower__line__leaf flower__line__leaf--3"></div>
-        <div class="flower__line__leaf flower__line__leaf--4"></div>
-        <div class="flower__line__leaf flower__line__leaf--5"></div>
-        <div class="flower__line__leaf flower__line__leaf--6"></div>
-      </div>
-    </div>
-
-    <div class="flower flower--2">
-      <div class="flower__leafs flower__leafs--2">
-        <div class="flower__leaf flower__leaf--1"></div>
-        <div class="flower__leaf flower__leaf--2"></div>
-        <div class="flower__leaf flower__leaf--3"></div>
-        <div class="flower__leaf flower__leaf--4"></div>
-        <div class="flower__white-circle"></div>
-
-        <div class="flower__light flower__light--1"></div>
-        <div class="flower__light flower__light--2"></div>
-        <div class="flower__light flower__light--3"></div>
-        <div class="flower__light flower__light--4"></div>
-        <div class="flower__light flower__light--5"></div>
-        <div class="flower__light flower__light--6"></div>
-        <div class="flower__light flower__light--7"></div>
-        <div class="flower__light flower__light--8"></div>
-
-      </div>
-      <div class="flower__line">
-        <div class="flower__line__leaf flower__line__leaf--1"></div>
-        <div class="flower__line__leaf flower__line__leaf--2"></div>
-        <div class="flower__line__leaf flower__line__leaf--3"></div>
-        <div class="flower__line__leaf flower__line__leaf--4"></div>
-      </div>
-    </div>
-
-    <div class="flower flower--3">
-      <div class="flower__leafs flower__leafs--3">
-        <div class="flower__leaf flower__leaf--1"></div>
-        <div class="flower__leaf flower__leaf--2"></div>
-        <div class="flower__leaf flower__leaf--3"></div>
-        <div class="flower__leaf flower__leaf--4"></div>
-        <div class="flower__white-circle"></div>
-
-        <div class="flower__light flower__light--1"></div>
-        <div class="flower__light flower__light--2"></div>
-        <div class="flower__light flower__light--3"></div>
-        <div class="flower__light flower__light--4"></div>
-        <div class="flower__light flower__light--5"></div>
-        <div class="flower__light flower__light--6"></div>
-        <div class="flower__light flower__light--7"></div>
-        <div class="flower__light flower__light--8"></div>
-
-      </div>
-      <div class="flower__line">
-        <div class="flower__line__leaf flower__line__leaf--1"></div>
-        <div class="flower__line__leaf flower__line__leaf--2"></div>
-        <div class="flower__line__leaf flower__line__leaf--3"></div>
-        <div class="flower__line__leaf flower__line__leaf--4"></div>
-      </div>
-    </div>
-    <div class="flower flower--4">
-      <div class="flower__leafs flower__leafs--3">
-        <div class="flower__leaf flower__leaf--1"></div>
-        <div class="flower__leaf flower__leaf--2"></div>
-        <div class="flower__leaf flower__leaf--3"></div>
-        <div class="flower__leaf flower__leaf--4"></div>
-        <div class="flower__white-circle"></div>
-
-        <div class="flower__light flower__light--1"></div>
-        <div class="flower__light flower__light--2"></div>
-        <div class="flower__light flower__light--3"></div>
-        <div class="flower__light flower__light--4"></div>
-        <div class="flower__light flower__light--5"></div>
-        <div class="flower__light flower__light--6"></div>
-        <div class="flower__light flower__light--7"></div>
-        <div class="flower__light flower__light--8"></div>
-
-      </div>
-      <div class="flower__line">
-        <div class="flower__line__leaf flower__line__leaf--1"></div>
-        <div class="flower__line__leaf flower__line__leaf--2"></div>
-        <div class="flower__line__leaf flower__line__leaf--3"></div>
-        <div class="flower__line__leaf flower__line__leaf--4"></div>
-      </div>
-    </div>
-
-    <div class="grow-ans" style="--d:1.2s">
-      <div class="flower__g-long">
-        <div class="flower__g-long__top"></div>
-        <div class="flower__g-long__bottom"></div>
-      </div>
-    </div>
-
-    <div class="growing-grass">
-      <div class="flower__grass flower__grass--1">
-        <div class="flower__grass--top"></div>
-        <div class="flower__grass--bottom"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
-        <div class="flower__grass__overlay"></div>
-      </div>
-    </div>
-
-    <div class="growing-grass">
-      <div class="flower__grass flower__grass--2">
-        <div class="flower__grass--top"></div>
-        <div class="flower__grass--bottom"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--1"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--2"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--3"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--4"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--5"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--6"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--7"></div>
-        <div class="flower__grass__leaf flower__grass__leaf--8"></div>
-        <div class="flower__grass__overlay"></div>
-      </div>
-    </div>
-
-    <div class="grow-ans" style="--d:2.4s">
-      <div class="flower__g-right flower__g-right--1">
-        <div class="leaf"></div>
-      </div>
-    </div>
-
-    <div class="grow-ans" style="--d:2.8s">
-      <div class="flower__g-right flower__g-right--2">
-        <div class="leaf"></div>
-      </div>
-    </div>
-
-    <div class="grow-ans" style="--d:2.8s">
-      <div class="flower__g-front">
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--1">
-          <div class="flower__g-front__leaf"></div>
+    <header class="fixed top-0 left-0 right-0 z-40 px-4 py-3 flex justify-between items-center bg-slate-950/40 backdrop-blur-md border-b border-amber-500/10">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl animate-bounce">🌻</span>
+            <span class="font-serif-title font-bold text-amber-300 text-lg sm:text-xl tracking-wide">21 de Septiembre</span>
         </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--2">
-          <div class="flower__g-front__leaf"></div>
+        <div class="flex items-center gap-2 sm:gap-4">
+            <!-- Sound Toggle Button -->
+            <button id="musicToggleBtn" onclick="toggleAudio()" class="p-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-2 text-xs sm:text-sm font-medium">
+                <i data-lucide="music" class="w-4 h-4"></i>
+                <span id="musicStatusText">Música</span>
+            </button>
+            <!-- Customization Settings Modal Trigger -->
+            <button onclick="openSettingsModal()" class="p-2.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-amber-300 hover:bg-slate-700 transition-all">
+                <i data-lucide="settings" class="w-4 h-4"></i>
+            </button>
         </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--3">
-          <div class="flower__g-front__leaf"></div>
+    </header>
+
+    <main class="relative z-10 pt-20 pb-16 px-4 max-w-5xl mx-auto flex flex-col items-center min-h-screen justify-center text-center">
+
+        <!-- Initial Unopening Envelope Banner -->
+        <section id="envelopeSection" class="w-full max-w-md mx-auto my-8 flex flex-col items-center">
+            <div class="mb-6 animate-pulse">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm tracking-widest uppercase font-semibold">
+                    Un detalle especial para ti
+                </span>
+            </div>
+            
+            <h1 class="font-serif-title text-4xl sm:text-6xl font-bold mb-4 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent glow-text">
+                Para <span id="displayNameHeader">Ysabel</span> ✨
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base max-w-sm mb-8 font-light leading-relaxed">
+                Hoy es un día para iluminar tu sonrisa con flores que jamás se marcharán. Toca el sobre para abrir tu regalo.
+            </p>
+
+            <!-- Envelope Component -->
+            <div id="interactiveEnvelope" onclick="openEnvelope()" class="envelope-wrapper cursor-pointer group my-4">
+                <div class="relative w-72 h-48 sm:w-80 sm:h-52 bg-amber-800/90 rounded-b-xl shadow-2xl border border-amber-600/40 p-4 flex flex-col justify-end items-center transition-transform transform group-hover:scale-105 duration-300">
+                    <!-- Flap -->
+                    <div class="flap"></div>
+                    <!-- Wax Seal -->
+                    <div id="waxSeal" class="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center shadow-lg border-2 border-amber-200 text-slate-950 font-bold transition-transform group-hover:scale-110">
+                        <i data-lucide="heart" class="w-6 h-6 fill-amber-950 text-amber-950"></i>
+                    </div>
+                    <!-- Preview Note inside -->
+                    <div class="w-full h-full bg-amber-50/95 rounded p-4 text-slate-800 text-left font-handwriting text-lg shadow-inner opacity-90 overflow-hidden flex flex-col justify-between">
+                        <p class="font-bold text-amber-900">De mi corazón...</p>
+                        <p class="text-xs text-amber-800/80 font-sans text-center">Haz clic para desplegar 🌻</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gardenSection" class="w-full hidden opacity-0 transition-opacity duration-1000 flex-col items-center">
+            
+            <div class="text-center mb-6">
+                <span class="text-amber-400 text-sm tracking-widest uppercase font-semibold">Tus Flores Amarillas</span>
+                <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amber-300 glow-text mt-1">
+                    Un Jardín Eterno para Ysabel
+                </h2>
+                <p class="text-slate-300 text-xs sm:text-sm mt-2 max-w-md mx-auto">
+                    Cada pétalo representa un momento, una sonrisa y el cariño inmenso que te tengo.
+                </p>
+            </div>
+
+            <!-- Main Interactive Animated SVG Flower Stage -->
+            <div class="relative w-full max-w-2xl h-[420px] sm:h-[480px] my-4 glass-card rounded-3xl overflow-hidden flex items-center justify-center border border-amber-500/20 shadow-2xl">
+                <!-- Background ambient glow -->
+                <div class="absolute inset-0 bg-radial from-amber-500/10 via-transparent to-transparent"></div>
+
+                <!-- SVG Sunflowers -->
+                <svg id="flowerSvg" class="w-full h-full relative z-10" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+                    <!-- Stem 1 Center -->
+                    <path id="stemCenter" d="M 400 600 Q 390 400 400 240" fill="none" stroke="#16a34a" stroke-width="8" stroke-linecap="round"/>
+                    <!-- Leaves Center -->
+                    <path d="M 395 420 Q 330 390 350 360 Q 380 390 395 410" fill="#15803d" opacity="0.9"/>
+                    <path d="M 405 380 Q 470 350 450 320 Q 420 350 405 370" fill="#15803d" opacity="0.9"/>
+
+                    <!-- Stem 2 Left -->
+                    <path id="stemLeft" d="M 300 600 Q 280 440 260 290" fill="none" stroke="#15803d" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Leaf Left -->
+                    <path d="M 285 450 Q 220 440 240 400 Q 270 420 285 440" fill="#166534"/>
+
+                    <!-- Stem 3 Right -->
+                    <path id="stemRight" d="M 500 600 Q 520 450 540 300" fill="none" stroke="#15803d" stroke-width="6" stroke-linecap="round"/>
+                    <!-- Leaf Right -->
+                    <path d="M 515 460 Q 580 440 560 400 Q 530 420 515 450" fill="#166534"/>
+
+                    <!-- FLOWER 2 LEFT (Secondary Sunflower) -->
+                    <g id="flowerLeftGroup" transform="translate(260, 290)">
+                        <g class="petals-container">
+                            <!-- Dynamically generated petals via JS -->
+                        </g>
+                        <!-- Center Disc -->
+                        <circle cx="0" cy="0" r="28" fill="#451a03" stroke="#b45309" stroke-width="3"/>
+                        <circle cx="0" cy="0" r="22" fill="#78350f" stroke-dasharray="3 3" stroke="#f59e0b" stroke-width="2"/>
+                    </g>
+
+                    <!-- FLOWER 3 RIGHT (Secondary Sunflower) -->
+                    <g id="flowerRightGroup" transform="translate(540, 300)">
+                        <g class="petals-container">
+                            <!-- Dynamically generated petals via JS -->
+                        </g>
+                        <!-- Center Disc -->
+                        <circle cx="0" cy="0" r="28" fill="#451a03" stroke="#b45309" stroke-width="3"/>
+                        <circle cx="0" cy="0" r="22" fill="#78350f" stroke-dasharray="3 3" stroke="#f59e0b" stroke-width="2"/>
+                    </g>
+
+                    <!-- FLOWER 1 CENTER MAIN SUNFLOWER -->
+                    <g id="flowerCenterGroup" transform="translate(400, 240)">
+                        <g id="mainPetalsGroup" class="cursor-pointer">
+                            <!-- Main Petals appended via JS -->
+                        </g>
+                        <!-- Center Disc with Texture -->
+                        <circle cx="0" cy="0" r="44" fill="#381404" stroke="#d97706" stroke-width="4" class="shadow-xl"/>
+                        <circle cx="0" cy="0" r="36" fill="#78350f" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2"/>
+                        <circle cx="0" cy="0" r="24" fill="#451a03"/>
+                        <!-- Glowing Center Core -->
+                        <circle cx="0" cy="0" r="10" fill="#f59e0b" class="animate-pulse"/>
+                    </g>
+                </svg>
+
+                <!-- Interactive Plant Tip -->
+                <div class="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-400/30 text-amber-200 text-xs backdrop-blur-sm">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                        Haz clic en la pantalla para hacer florecer más girasoles
+                    </span>
+                </div>
+            </div>
+
+            <div class="w-full max-w-2xl mt-6 glass-card-gold rounded-3xl p-6 sm:p-8 text-left relative overflow-hidden border border-amber-500/30 shadow-2xl">
+                <div class="absolute -right-8 -bottom-8 opacity-10 text-amber-400 pointer-events-none">
+                    <i data-lucide="sun" class="w-48 h-48"></i>
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-amber-400 animate-ping"></div>
+                        <h3 class="font-serif-title font-bold text-xl text-amber-200">Carta para Ysabel</h3>
+                    </div>
+                    <span class="text-xs text-amber-400/80 font-mono">21.09.2026</span>
+                </div>
+
+                <p id="customLoveMessage" class="text-slate-200 text-base sm:text-lg leading-relaxed font-light mb-6 whitespace-pre-line">
+                    Querida Ysabel,
+
+                    En este 21 de septiembre, no quería dejar pasar el día sin entregarte las flores amarillas más radiantes que existen. 
+
+                    Dicen que regalar flores amarillas significa desearle a alguien luz, alegría y una presencia eterna en tu vida. Para mí, tú eres exactamente eso: esa luz cálida que vuelve cualquier día especial y bonito.
+
+                    Espero que este detalle te saque una hermosa sonrisa. Gracias por ser tal como eres, tan única y especial.
+                </p>
+
+                <div class="pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-amber-400 font-handwriting text-2xl">Con todo mi cariño,</span>
+                        <span id="displaySenderName" class="font-bold text-amber-200 text-lg">Para Ti</span>
+                    </div>
+
+                    <button onclick="triggerConfetti()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-semibold text-sm hover:from-amber-400 hover:to-yellow-400 transition-all shadow-lg hover:shadow-amber-500/25 flex items-center gap-2">
+                        <i data-lucide="heart-handshake" class="w-4 h-4"></i>
+                        ¡Enviar Abrazo Virtual!
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full max-w-2xl mt-8">
+                <h3 class="font-serif-title text-2xl font-bold text-amber-300 text-center mb-2">
+                    Razones por las que iluminas mi mundo 🌻
+                </h3>
+                <p class="text-xs text-slate-400 text-center mb-6">
+                    Toca cada tarjeta para descubrir una razón especial
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="reasonsGrid">
+                    <!-- Dynamic cards injected via JavaScript -->
+                </div>
+            </div>
+
+            <div class="w-full max-w-2xl mt-10 text-center">
+                <h3 class="font-serif-title text-2xl font-bold text-amber-300 mb-6">
+                    Nuestros Momentos Especiales ✨
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- Polaroid 1 -->
+                    <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform hover:-rotate-2 hover:scale-105 transition-all duration-300 text-slate-800">
+                        <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
+                            <img id="polaroidImg1" src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" alt="Girasol" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
+                        </div>
+                        <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Tu Sonrisa Radiante</p>
+                    </div>
+
+                    <!-- Polaroid 2 -->
+                    <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 text-slate-800">
+                        <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
+                            <img id="polaroidImg2" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Flores Amarillas" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
+                        </div>
+                        <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Luz de Septiembre</p>
+                    </div>
+
+                    <!-- Polaroid 3 -->
+                    <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform -rotate-1 hover:rotate-2 hover:scale-105 transition-all duration-300 text-slate-800">
+                        <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
+                            <img id="polaroidImg3" src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=600&q=80" alt="Atardecer" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
+                        </div>
+                        <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Un Cariño Eterno</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Message -->
+            <footer class="mt-16 text-center text-slate-500 text-xs">
+                Hecho con ❤️ para Ysabel • 21 de Septiembre
+            </footer>
+        </section>
+    </main>
+
+    <div id="settingsModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 border border-amber-500/30 shadow-2xl relative">
+            <button onclick="closeSettingsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <h3 class="font-serif-title text-xl font-bold text-amber-300 mb-4 flex items-center gap-2">
+                <i data-lucide="edit-3" class="w-5 h-5"></i>
+                Personalizar Mensaje
+            </h3>
+
+            <div class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">Nombre de la persona especial:</label>
+                    <input type="text" id="inputRecipient" value="Ysabel" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">De parte de:</label>
+                    <input type="text" id="inputSender" value="Tu Admirador" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">Mensaje de la Carta:</label>
+                    <textarea id="inputMessage" rows="5" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400 leading-relaxed"></textarea>
+                </div>
+
+                <div class="pt-2 flex gap-3">
+                    <button onclick="saveCustomizations()" class="flex-1 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm hover:bg-amber-400 transition-all">
+                        Guardar Cambios
+                    </button>
+                    <button onclick="closeSettingsModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm hover:bg-slate-700">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--4">
-          <div class="flower__g-front__leaf"></div>
-        </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--5">
-          <div class="flower__g-front__leaf"></div>
-        </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--6">
-          <div class="flower__g-front__leaf"></div>
-        </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--7">
-          <div class="flower__g-front__leaf"></div>
-        </div>
-        <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--8">
-          <div class="flower__g-front__leaf"></div>
-        </div>
-        <div class="flower__g-front__line"></div>
-      </div>
     </div>
 
-    <div class="grow-ans" style="--d:3.2s">
-      <div class="flower__g-fr">
-        <div class="leaf"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--1"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--2"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--3"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--4"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--5"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--6"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--7"></div>
-        <div class="flower__g-fr__leaf flower__g-fr__leaf--8"></div>
-      </div>
-    </div>
+    <script>
+        let audioContext = null;
+        let isPlayingAudio = false;
+        let audioOscillators = [];
+        let audioMelodyInterval = null;
 
-    <div class="long-g long-g--0">
-      <div class="grow-ans" style="--d:3s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:2.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.4s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+        const defaultReasons = [
+            { icon: "sun", title: "Tu Alegría", text: "Tienes una forma única de iluminar el día de quienes te rodean con tu presencia." },
+            { icon: "smile", title: "Tu Sonrisa", text: "Es tan cálida y auténtica que contagia felicidad de inmediato." },
+            { icon: "sparkles", title: "Tu Forma de Ser", text: "Tu amabilidad, tu esencia y todo lo que te hace ser tú, Ysabel." },
+            { icon: "heart", title: "Un Detalle Especial", text: "Porque te mereces recibir flores amarillas hoy y siempre." }
+        ];
 
-    <div class="long-g long-g--1">
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.8s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:4s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initPetalParticleSystem();
+            renderSunflowersSVG();
+            renderReasonsCards();
+            
+            // Set initial values
+            const storedMessage = localStorage.getItem('ysabel_love_msg');
+            if (storedMessage) {
+                document.getElementById('customLoveMessage').innerText = storedMessage;
+                document.getElementById('inputMessage').value = storedMessage;
+            } else {
+                document.getElementById('inputMessage').value = document.getElementById('customLoveMessage').innerText;
+            }
 
-    <div class="long-g long-g--2">
-      <div class="grow-ans" style="--d:4s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.4s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+            // Click canvas to plant new flowers
+            document.getElementById('flowerSvg').addEventListener('click', (e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                plantExtraFlower(x, y);
+            });
+        });
 
-    <div class="long-g long-g--3">
-      <div class="grow-ans" style="--d:4s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:3s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+        function renderSunflowersSVG() {
+            // Render petals for main flower (Center)
+            const mainPetalsGroup = document.getElementById('mainPetalsGroup');
+            const numPetalsMain = 24;
+            for (let i = 0; i < numPetalsMain; i++) {
+                const angle = (i * 360) / numPetalsMain;
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                petal.setAttribute('d', 'M 0 0 C -18 -40, -14 -95, 0 -115 C 14 -95, 18 -40, 0 0 Z');
+                petal.setAttribute('fill', i % 2 === 0 ? '#facc15' : '#f59e0b');
+                petal.setAttribute('stroke', '#eab308');
+                petal.setAttribute('stroke-width', '1');
+                petal.setAttribute('transform', `rotate(${angle})`);
+                petal.classList.add('transition-transform', 'duration-300', 'hover:scale-110');
+                mainPetalsGroup.appendChild(petal);
+            }
 
-    <div class="long-g long-g--4">
-      <div class="grow-ans" style="--d:4s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:3s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+            // Render petals for Left Flower
+            const leftGroup = document.querySelector('#flowerLeftGroup .petals-container');
+            const numPetalsSmall = 18;
+            for (let i = 0; i < numPetalsSmall; i++) {
+                const angle = (i * 360) / numPetalsSmall;
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                petal.setAttribute('d', 'M 0 0 C -12 -25, -10 -65, 0 -80 C 10 -65, 12 -25, 0 0 Z');
+                petal.setAttribute('fill', i % 2 === 0 ? '#fde047' : '#fbbf24');
+                petal.setAttribute('transform', `rotate(${angle})`);
+                leftGroup.appendChild(petal);
+            }
 
-    <div class="long-g long-g--5">
-      <div class="grow-ans" style="--d:4s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:3s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+            // Render petals for Right Flower
+            const rightGroup = document.querySelector('#flowerRightGroup .petals-container');
+            for (let i = 0; i < numPetalsSmall; i++) {
+                const angle = (i * 360) / numPetalsSmall;
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                petal.setAttribute('d', 'M 0 0 C -12 -25, -10 -65, 0 -80 C 10 -65, 12 -25, 0 0 Z');
+                petal.setAttribute('fill', i % 2 === 0 ? '#facc15' : '#f59e0b');
+                petal.setAttribute('transform', `rotate(${angle})`);
+                rightGroup.appendChild(petal);
+            }
+        }
 
-    <div class="long-g long-g--6">
-      <div class="grow-ans" style="--d:4.2s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.4s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.6s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:4.8s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
+        function openEnvelope() {
+            const envelope = document.getElementById('interactiveEnvelope');
+            envelope.classList.add('open');
 
-    <div class="long-g long-g--7">
-      <div class="grow-ans" style="--d:3s">
-        <div class="leaf leaf--0"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.2s">
-        <div class="leaf leaf--1"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.5s">
-        <div class="leaf leaf--2"></div>
-      </div>
-      <div class="grow-ans" style="--d:3.6s">
-        <div class="leaf leaf--3"></div>
-      </div>
-    </div>
-  </div>
-  <script src="main.js"></script>
-  <div class="bubbles">
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-    </div>
-    <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
-        <title>heart22</title>
-        <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-      </svg>
-</body>
-<!-- partial -->
-  <script  src="./script.js"></script>
+            // Play celebratory confetti sound synth chirp
+            playChirpSound();
 
+            setTimeout(() => {
+                gsap.to('#envelopeSection', {
+                    duration: 0.8,
+                    opacity: 0,
+                    y: -40,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        document.getElementById('envelopeSection').classList.add('hidden');
+                        const garden = document.getElementById('gardenSection');
+                        garden.classList.remove('hidden');
+                        
+                        gsap.to(garden, {
+                            duration: 1,
+                            opacity: 1,
+                            ease: 'power2.out',
+                            onStart: () => {
+                                animateGardenBloom();
+                                triggerConfetti();
+                                startMelodicAudio();
+                            }
+                        });
+                    }
+                });
+            }, 600);
+        }
+
+        function animateGardenBloom() {
+            // Animate stems
+            gsap.fromTo('#stemCenter', 
+                { strokeDasharray: 1000, strokeDashoffset: 1000 }, 
+                { strokeDashoffset: 0, duration: 2, ease: 'power2.out' }
+            );
+            gsap.fromTo('#stemLeft', 
+                { strokeDasharray: 1000, strokeDashoffset: 1000 }, 
+                { strokeDashoffset: 0, duration: 2, delay: 0.3, ease: 'power2.out' }
+            );
+            gsap.fromTo('#stemRight', 
+                { strokeDasharray: 1000, strokeDashoffset: 1000 }, 
+                { strokeDashoffset: 0, duration: 2, delay: 0.5, ease: 'power2.out' }
+            );
+
+            // Animate flower blossoms
+            gsap.fromTo('#flowerCenterGroup', 
+                { scale: 0, rotation: -45, transformOrigin: 'center center' }, 
+                { scale: 1, rotation: 0, duration: 1.8, delay: 1.2, ease: 'back.out(1.7)' }
+            );
+            gsap.fromTo('#flowerLeftGroup', 
+                { scale: 0, rotation: -30, transformOrigin: 'center center' }, 
+                { scale: 0.85, rotation: 0, duration: 1.5, delay: 1.5, ease: 'back.out(1.5)' }
+            );
+            gsap.fromTo('#flowerRightGroup', 
+                { scale: 0, rotation: 30, transformOrigin: 'center center' }, 
+                { scale: 0.85, rotation: 0, duration: 1.5, delay: 1.7, ease: 'back.out(1.5)' }
+            );
+        }
+
+        function plantExtraFlower(x, y) {
+            const svg = document.getElementById('flowerSvg');
+            const newFlowerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            newFlowerGroup.setAttribute('transform', `translate(${x}, ${y})`);
+
+            // Generate petals
+            const petalsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            for (let i = 0; i < 14; i++) {
+                const angle = (i * 360) / 14;
+                const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                petal.setAttribute('d', 'M 0 0 C -8 -15, -6 -35, 0 -45 C 6 -35, 8 -15, 0 0 Z');
+                petal.setAttribute('fill', i % 2 === 0 ? '#facc15' : '#fbbf24');
+                petal.setAttribute('transform', `rotate(${angle})`);
+                petalsGroup.appendChild(petal);
+            }
+
+            const centerDisc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            centerDisc.setAttribute('cx', '0');
+            centerDisc.setAttribute('cy', '0');
+            centerDisc.setAttribute('r', '14');
+            centerDisc.setAttribute('fill', '#451a03');
+
+            newFlowerGroup.appendChild(petalsGroup);
+            newFlowerGroup.appendChild(centerDisc);
+            svg.appendChild(newFlowerGroup);
+
+            // GSAP bloom animation
+            gsap.fromTo(newFlowerGroup, 
+                { scale: 0, transformOrigin: 'center center' }, 
+                { scale: 0.7, duration: 0.8, ease: 'back.out(2)' }
+            );
+
+            playNoteSound(440 + Math.random() * 220);
+        }
+
+        function renderReasonsCards() {
+            const grid = document.getElementById('reasonsGrid');
+            grid.innerHTML = '';
+
+            defaultReasons.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-4 rounded-2xl border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group";
+                card.onclick = () => {
+                    gsap.to(card, { scale: 1.03, duration: 0.2, yoyo: true, repeat: 1 });
+                    triggerConfettiSmall();
+                };
+
+                card.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 group-hover:scale-110 transition-transform">
+                            <i data-lucide="${item.icon}" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-amber-200 text-sm mb-1">${item.title}</h4>
+                            <p class="text-slate-300 text-xs leading-relaxed font-light">${item.text}</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function initPetalParticleSystem() {
+            const canvas = document.getElementById('petalCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const petals = [];
+            const numPetals = 35;
+
+            for (let i = 0; i < numPetals; i++) {
+                petals.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 8 + 6,
+                    speedY: Math.random() * 1.2 + 0.6,
+                    speedX: Math.random() * 0.8 - 0.4,
+                    angle: Math.random() * 360,
+                    spin: Math.random() * 2 - 1,
+                    opacity: Math.random() * 0.6 + 0.3
+                });
+            }
+
+            function drawPetal(p) {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.angle * Math.PI) / 180);
+                ctx.globalAlpha = p.opacity;
+
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-p.size, -p.size * 1.5, -p.size * 1.2, -p.size * 2.5, 0, -p.size * 3);
+                ctx.bezierCurveTo(p.size * 1.2, -p.size * 2.5, p.size, -p.size * 1.5, 0, 0);
+                
+                const gradient = ctx.createLinearGradient(0, -p.size * 3, 0, 0);
+                gradient.addColorStop(0, '#fde047');
+                gradient.addColorStop(1, '#f59e0b');
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                petals.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += Math.sin(p.y * 0.01) + p.speedX;
+                    p.angle += p.spin;
+
+                    if (p.y > canvas.height + 20) {
+                        p.y = -20;
+                        p.x = Math.random() * canvas.width;
+                    }
+
+                    drawPetal(p);
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        function initAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+
+        function playNoteSound(freq) {
+            try {
+                initAudioContext();
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+
+                gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+
+                osc.start();
+                osc.stop(audioContext.currentTime + 1.2);
+            } catch (e) {
+                console.log('Audio playback prevented');
+            }
+        }
+
+        function playChirpSound() {
+            try {
+                initAudioContext();
+                const now = audioContext.currentTime;
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    gain.gain.setValueAtTime(0.1, now + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.4);
+                });
+            } catch (e) {}
+        }
+
+        function startMelodicAudio() {
+            if (isPlayingAudio) return;
+            initAudioContext();
+            isPlayingAudio = true;
+            document.getElementById('musicStatusText').innerText = "Sonando ♪";
+
+            // Soft romantic piano notes progression (C major / A minor sweet lullaby)
+            const notes = [
+                261.63, 329.63, 392.00, 523.25, 
+                349.23, 440.00, 523.25, 659.25,
+                392.00, 493.88, 587.33, 698.46,
+                220.00, 261.63, 329.63, 440.00
+            ];
+
+            let noteIdx = 0;
+            audioMelodyInterval = setInterval(() => {
+                if (!isPlayingAudio) return;
+                playNoteSound(notes[noteIdx % notes.length]);
+                noteIdx++;
+            }, 800);
+        }
+
+        function toggleAudio() {
+            if (isPlayingAudio) {
+                isPlayingAudio = false;
+                clearInterval(audioMelodyInterval);
+                document.getElementById('musicStatusText').innerText = "Música";
+            } else {
+                startMelodicAudio();
+            }
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#facc15', '#f59e0b', '#fbbf24', '#fde047', '#ffffff']
+            });
+        }
+
+        function triggerConfettiSmall() {
+            confetti({
+                particleCount: 25,
+                spread: 50,
+                origin: { y: 0.7 },
+                colors: ['#facc15', '#fbbf24']
+            });
+        }
+
+        function openSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function saveCustomizations() {
+            const recipient = document.getElementById('inputRecipient').value || "Ysabel";
+            const sender = document.getElementById('inputSender').value || "Tu Admirador";
+            const message = document.getElementById('inputMessage').value;
+
+            document.getElementById('displayNameHeader').innerText = recipient;
+            document.getElementById('displaySenderName').innerText = sender;
+            document.getElementById('customLoveMessage').innerText = message;
+
+            localStorage.setItem('ysabel_love_msg', message);
+            closeSettingsModal();
+            triggerConfettiSmall();
+        }
+    </script>
 </body>
 </html>
