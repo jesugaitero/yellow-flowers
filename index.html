@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flores Amarillas para Ysabel 🌻</title>
+    <title>Flores Amarillas para Ysshabelitaa 🌻</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -39,11 +39,6 @@
             text-shadow: 0 0 20px rgba(250, 204, 21, 0.6), 0 0 40px rgba(245, 158, 11, 0.3);
         }
 
-        .glow-box {
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.25), inset 0 0 15px rgba(250, 204, 21, 0.1);
-        }
-
-        /* Glassmorphism styling */
         .glass-card {
             background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
@@ -56,7 +51,6 @@
             border: 1px solid rgba(253, 224, 71, 0.3);
         }
 
-        /* Envelope interactive animations */
         .envelope-wrapper {
             perspective: 1000px;
         }
@@ -85,37 +79,15 @@
             z-index: 3;
         }
 
-        /* Flower stem growth keyframes */
-        @keyframes stemGrow {
-            0% { stroke-dashoffset: 1000; }
-            100% { stroke-dashoffset: 0; }
-        }
-
-        @keyframes petalBloom {
-            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-            80% { transform: scale(1.1) rotate(5deg); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-12px) rotate(3deg); }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 15px rgba(250,204,21,0.8)); }
-            50% { opacity: 0.9; filter: drop-shadow(0 0 30px rgba(250,204,21,1)); }
         }
 
         .animate-float {
             animation: floatSlow 6s ease-in-out infinite;
         }
 
-        .animate-pulse-glow {
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
-
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -139,13 +111,9 @@
         </div>
         <div class="flex items-center gap-2 sm:gap-4">
             <!-- Sound Toggle Button -->
-            <button id="musicToggleBtn" onclick="toggleAudio()" class="p-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-2 text-xs sm:text-sm font-medium">
+            <button id="musicToggleBtn" onclick="toggleAudio()" class="px-3.5 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-2 text-xs sm:text-sm font-medium">
                 <i data-lucide="music" class="w-4 h-4"></i>
                 <span id="musicStatusText">Música</span>
-            </button>
-            <!-- Customization Settings Modal Trigger -->
-            <button onclick="openSettingsModal()" class="p-2.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 hover:text-amber-300 hover:bg-slate-700 transition-all">
-                <i data-lucide="settings" class="w-4 h-4"></i>
             </button>
         </div>
     </header>
@@ -161,10 +129,10 @@
             </div>
             
             <h1 class="font-serif-title text-4xl sm:text-6xl font-bold mb-4 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 bg-clip-text text-transparent glow-text">
-                Para <span id="displayNameHeader">Ysabel</span> ✨
+                Para <span id="displayNameHeader">Ysshabelitaa</span> ✨
             </h1>
             <p class="text-slate-300 text-sm sm:text-base max-w-sm mb-8 font-light leading-relaxed">
-                Hoy es un día para iluminar tu sonrisa con flores que jamás se marcharán. Toca el sobre para abrir tu regalo.
+                Hoy es un día para iluminar tu sonrisa con flores que jamás se marcharán. Toca el sobre para abrir tu regalo de parte de <strong>Jesusitolindo</strong>.
             </p>
 
             <!-- Envelope Component -->
@@ -190,10 +158,10 @@
             <div class="text-center mb-6">
                 <span class="text-amber-400 text-sm tracking-widest uppercase font-semibold">Tus Flores Amarillas</span>
                 <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amber-300 glow-text mt-1">
-                    Un Jardín Eterno para Ysabel
+                    Un Jardín Eterno para Ysshabelitaa
                 </h2>
                 <p class="text-slate-300 text-xs sm:text-sm mt-2 max-w-md mx-auto">
-                    Cada pétalo representa un momento, una sonrisa y el cariño inmenso que te tengo.
+                    Cada pétalo representa un momento, una sonrisa y el cariño inmenso de Jesusitolindo.
                 </p>
             </div>
 
@@ -212,49 +180,36 @@
 
                     <!-- Stem 2 Left -->
                     <path id="stemLeft" d="M 300 600 Q 280 440 260 290" fill="none" stroke="#15803d" stroke-width="6" stroke-linecap="round"/>
-                    <!-- Leaf Left -->
                     <path d="M 285 450 Q 220 440 240 400 Q 270 420 285 440" fill="#166534"/>
 
                     <!-- Stem 3 Right -->
                     <path id="stemRight" d="M 500 600 Q 520 450 540 300" fill="none" stroke="#15803d" stroke-width="6" stroke-linecap="round"/>
-                    <!-- Leaf Right -->
                     <path d="M 515 460 Q 580 440 560 400 Q 530 420 515 450" fill="#166534"/>
 
-                    <!-- FLOWER 2 LEFT (Secondary Sunflower) -->
+                    <!-- FLOWER 2 LEFT -->
                     <g id="flowerLeftGroup" transform="translate(260, 290)">
-                        <g class="petals-container">
-                            <!-- Dynamically generated petals via JS -->
-                        </g>
-                        <!-- Center Disc -->
+                        <g class="petals-container"></g>
                         <circle cx="0" cy="0" r="28" fill="#451a03" stroke="#b45309" stroke-width="3"/>
                         <circle cx="0" cy="0" r="22" fill="#78350f" stroke-dasharray="3 3" stroke="#f59e0b" stroke-width="2"/>
                     </g>
 
-                    <!-- FLOWER 3 RIGHT (Secondary Sunflower) -->
+                    <!-- FLOWER 3 RIGHT -->
                     <g id="flowerRightGroup" transform="translate(540, 300)">
-                        <g class="petals-container">
-                            <!-- Dynamically generated petals via JS -->
-                        </g>
-                        <!-- Center Disc -->
+                        <g class="petals-container"></g>
                         <circle cx="0" cy="0" r="28" fill="#451a03" stroke="#b45309" stroke-width="3"/>
                         <circle cx="0" cy="0" r="22" fill="#78350f" stroke-dasharray="3 3" stroke="#f59e0b" stroke-width="2"/>
                     </g>
 
                     <!-- FLOWER 1 CENTER MAIN SUNFLOWER -->
                     <g id="flowerCenterGroup" transform="translate(400, 240)">
-                        <g id="mainPetalsGroup" class="cursor-pointer">
-                            <!-- Main Petals appended via JS -->
-                        </g>
-                        <!-- Center Disc with Texture -->
+                        <g id="mainPetalsGroup" class="cursor-pointer"></g>
                         <circle cx="0" cy="0" r="44" fill="#381404" stroke="#d97706" stroke-width="4" class="shadow-xl"/>
                         <circle cx="0" cy="0" r="36" fill="#78350f" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4 2"/>
                         <circle cx="0" cy="0" r="24" fill="#451a03"/>
-                        <!-- Glowing Center Core -->
                         <circle cx="0" cy="0" r="10" fill="#f59e0b" class="animate-pulse"/>
                     </g>
                 </svg>
 
-                <!-- Interactive Plant Tip -->
                 <div class="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-400/30 text-amber-200 text-xs backdrop-blur-sm">
                         <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
@@ -271,13 +226,13 @@
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center gap-2">
                         <div class="w-3 h-3 rounded-full bg-amber-400 animate-ping"></div>
-                        <h3 class="font-serif-title font-bold text-xl text-amber-200">Carta para Ysabel</h3>
+                        <h3 class="font-serif-title font-bold text-xl text-amber-200">Carta para Ysshabelitaa</h3>
                     </div>
                     <span class="text-xs text-amber-400/80 font-mono">21.09.2026</span>
                 </div>
 
                 <p id="customLoveMessage" class="text-slate-200 text-base sm:text-lg leading-relaxed font-light mb-6 whitespace-pre-line">
-                    Querida Ysabel,
+                    Querida Ysshabelitaa,
 
                     En este 21 de septiembre, no quería dejar pasar el día sin entregarte las flores amarillas más radiantes que existen. 
 
@@ -289,7 +244,7 @@
                 <div class="pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-2">
                         <span class="text-amber-400 font-handwriting text-2xl">Con todo mi cariño,</span>
-                        <span id="displaySenderName" class="font-bold text-amber-200 text-lg">Para Ti</span>
+                        <span id="displaySenderName" class="font-bold text-amber-200 text-lg">Jesusitolindo</span>
                     </div>
 
                     <button onclick="triggerConfetti()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-semibold text-sm hover:from-amber-400 hover:to-yellow-400 transition-all shadow-lg hover:shadow-amber-500/25 flex items-center gap-2">
@@ -304,7 +259,7 @@
                     Razones por las que iluminas mi mundo 🌻
                 </h3>
                 <p class="text-xs text-slate-400 text-center mb-6">
-                    Toca cada tarjeta para descubrir una razón especial
+                    Toca cada tarjeta para descubrir un mensaje especial
                 </p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="reasonsGrid">
@@ -317,11 +272,15 @@
                     Nuestros Momentos Especiales ✨
                 </h3>
 
+                <p class="text-xs text-slate-400 mb-6 -mt-4">
+                    Un recuerdo para cada sonrisa compartida
+                </p>
+
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <!-- Polaroid 1 -->
                     <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform hover:-rotate-2 hover:scale-105 transition-all duration-300 text-slate-800">
                         <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
-                            <img id="polaroidImg1" src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80" alt="Girasol" class="w-full h-full object-cover">
+                            <img id="polaroidImg1" src="tusonrisa.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80';" alt="Tu Sonrisa Radiante" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
                         </div>
                         <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Tu Sonrisa Radiante</p>
@@ -330,7 +289,7 @@
                     <!-- Polaroid 2 -->
                     <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 text-slate-800">
                         <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
-                            <img id="polaroidImg2" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Flores Amarillas" class="w-full h-full object-cover">
+                            <img id="polaroidImg2" src="tuluz.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80';" alt="Luz de Septiembre" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
                         </div>
                         <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Luz de Septiembre</p>
@@ -339,7 +298,7 @@
                     <!-- Polaroid 3 -->
                     <div class="bg-amber-50 p-3 pt-4 rounded-lg shadow-xl transform -rotate-1 hover:rotate-2 hover:scale-105 transition-all duration-300 text-slate-800">
                         <div class="w-full h-44 bg-amber-200/50 rounded overflow-hidden relative group flex items-center justify-center">
-                            <img id="polaroidImg3" src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=600&q=80" alt="Atardecer" class="w-full h-full object-cover">
+                            <img id="polaroidImg3" src="tucarino.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563241527-3004b7be0ffd?auto=format&fit=crop&w=600&q=80';" alt="Un Cariño Eterno" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-all"></div>
                         </div>
                         <p class="font-handwriting text-xl text-center mt-3 text-amber-950 font-bold">Un Cariño Eterno</p>
@@ -349,61 +308,21 @@
 
             <!-- Footer Message -->
             <footer class="mt-16 text-center text-slate-500 text-xs">
-                Hecho con ❤️ para Ysabel • 21 de Septiembre
+                Hecho con ❤️ por Jesusitolindo para Ysshabelitaa • 21 de Septiembre
             </footer>
         </section>
     </main>
 
-    <div id="settingsModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-md rounded-3xl p-6 border border-amber-500/30 shadow-2xl relative">
-            <button onclick="closeSettingsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-
-            <h3 class="font-serif-title text-xl font-bold text-amber-300 mb-4 flex items-center gap-2">
-                <i data-lucide="edit-3" class="w-5 h-5"></i>
-                Personalizar Mensaje
-            </h3>
-
-            <div class="space-y-4 text-left">
-                <div>
-                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">Nombre de la persona especial:</label>
-                    <input type="text" id="inputRecipient" value="Ysabel" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400">
-                </div>
-
-                <div>
-                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">De parte de:</label>
-                    <input type="text" id="inputSender" value="Tu Admirador" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400">
-                </div>
-
-                <div>
-                    <label class="block text-xs text-amber-300/80 uppercase tracking-wider mb-1">Mensaje de la Carta:</label>
-                    <textarea id="inputMessage" rows="5" class="w-full bg-slate-900/90 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-400 leading-relaxed"></textarea>
-                </div>
-
-                <div class="pt-2 flex gap-3">
-                    <button onclick="saveCustomizations()" class="flex-1 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm hover:bg-amber-400 transition-all">
-                        Guardar Cambios
-                    </button>
-                    <button onclick="closeSettingsModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-sm hover:bg-slate-700">
-                        Cancelar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         let audioContext = null;
         let isPlayingAudio = false;
-        let audioOscillators = [];
         let audioMelodyInterval = null;
 
         const defaultReasons = [
-            { icon: "sun", title: "Tu Alegría", text: "Tienes una forma única de iluminar el día de quienes te rodean con tu presencia." },
+            { icon: "sun", title: "Tu Alegría", text: "Tienes una forma única de iluminar el día de quienes te rodean con tu sola presencia." },
             { icon: "smile", title: "Tu Sonrisa", text: "Es tan cálida y auténtica que contagia felicidad de inmediato." },
-            { icon: "sparkles", title: "Tu Forma de Ser", text: "Tu amabilidad, tu esencia y todo lo que te hace ser tú, Ysabel." },
-            { icon: "heart", title: "Un Detalle Especial", text: "Porque te mereces recibir flores amarillas hoy y siempre." }
+            { icon: "sparkles", title: "Tu Forma de Ser", text: "Tu amabilidad, tu esencia y todo lo que te hace ser tú, Ysshabelitaa." },
+            { icon: "heart", title: "Un Detalle Especial", text: "Porque te mereces recibir flores amarillas de parte de Jesusitolindo hoy y siempre." }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -411,15 +330,6 @@
             initPetalParticleSystem();
             renderSunflowersSVG();
             renderReasonsCards();
-            
-            // Set initial values
-            const storedMessage = localStorage.getItem('ysabel_love_msg');
-            if (storedMessage) {
-                document.getElementById('customLoveMessage').innerText = storedMessage;
-                document.getElementById('inputMessage').value = storedMessage;
-            } else {
-                document.getElementById('inputMessage').value = document.getElementById('customLoveMessage').innerText;
-            }
 
             // Click canvas to plant new flowers
             document.getElementById('flowerSvg').addEventListener('click', (e) => {
@@ -474,7 +384,6 @@
             const envelope = document.getElementById('interactiveEnvelope');
             envelope.classList.add('open');
 
-            // Play celebratory confetti sound synth chirp
             playChirpSound();
 
             setTimeout(() => {
@@ -504,7 +413,6 @@
         }
 
         function animateGardenBloom() {
-            // Animate stems
             gsap.fromTo('#stemCenter', 
                 { strokeDasharray: 1000, strokeDashoffset: 1000 }, 
                 { strokeDashoffset: 0, duration: 2, ease: 'power2.out' }
@@ -518,7 +426,6 @@
                 { strokeDashoffset: 0, duration: 2, delay: 0.5, ease: 'power2.out' }
             );
 
-            // Animate flower blossoms
             gsap.fromTo('#flowerCenterGroup', 
                 { scale: 0, rotation: -45, transformOrigin: 'center center' }, 
                 { scale: 1, rotation: 0, duration: 1.8, delay: 1.2, ease: 'back.out(1.7)' }
@@ -538,7 +445,6 @@
             const newFlowerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             newFlowerGroup.setAttribute('transform', `translate(${x}, ${y})`);
 
-            // Generate petals
             const petalsGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
             for (let i = 0; i < 14; i++) {
                 const angle = (i * 360) / 14;
@@ -559,7 +465,6 @@
             newFlowerGroup.appendChild(centerDisc);
             svg.appendChild(newFlowerGroup);
 
-            // GSAP bloom animation
             gsap.fromTo(newFlowerGroup, 
                 { scale: 0, transformOrigin: 'center center' }, 
                 { scale: 0.7, duration: 0.8, ease: 'back.out(2)' }
@@ -572,7 +477,7 @@
             const grid = document.getElementById('reasonsGrid');
             grid.innerHTML = '';
 
-            defaultReasons.forEach((item, index) => {
+            defaultReasons.forEach((item) => {
                 const card = document.createElement('div');
                 card.className = "glass-card p-4 rounded-2xl border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group";
                 card.onclick = () => {
@@ -631,7 +536,7 @@
 
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-p.size, -p.size * 1.5, -p.size * 1.2, -p.size * 2.5, 0, -p.size * 3);
+                ctx.bezierCurveTo(-p.size, -p.size * 1.5, -p.size * 2.5, -p.size * 2.5, 0, -p.size * 3);
                 ctx.bezierCurveTo(p.size * 1.2, -p.size * 2.5, p.size, -p.size * 1.5, 0, 0);
                 
                 const gradient = ctx.createLinearGradient(0, -p.size * 3, 0, 0);
@@ -691,9 +596,7 @@
 
                 osc.start();
                 osc.stop(audioContext.currentTime + 1.2);
-            } catch (e) {
-                console.log('Audio playback prevented');
-            }
+            } catch (e) {}
         }
 
         function playChirpSound() {
@@ -720,7 +623,6 @@
             isPlayingAudio = true;
             document.getElementById('musicStatusText').innerText = "Sonando ♪";
 
-            // Soft romantic piano notes progression (C major / A minor sweet lullaby)
             const notes = [
                 261.63, 329.63, 392.00, 523.25, 
                 349.23, 440.00, 523.25, 659.25,
@@ -762,28 +664,6 @@
                 origin: { y: 0.7 },
                 colors: ['#facc15', '#fbbf24']
             });
-        }
-
-        function openSettingsModal() {
-            document.getElementById('settingsModal').classList.remove('hidden');
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.add('hidden');
-        }
-
-        function saveCustomizations() {
-            const recipient = document.getElementById('inputRecipient').value || "Ysabel";
-            const sender = document.getElementById('inputSender').value || "Tu Admirador";
-            const message = document.getElementById('inputMessage').value;
-
-            document.getElementById('displayNameHeader').innerText = recipient;
-            document.getElementById('displaySenderName').innerText = sender;
-            document.getElementById('customLoveMessage').innerText = message;
-
-            localStorage.setItem('ysabel_love_msg', message);
-            closeSettingsModal();
-            triggerConfettiSmall();
         }
     </script>
 </body>
